@@ -1,22 +1,31 @@
-import express from "express";
+import "express-async-errors";
+import express, { NextFunction, Request, Response } from "express";
 
-import { allTasks } from "./routes/allTasks";
-import { createTask } from "./routes/createTask";
-import { updateTask } from "./routes/updateTask";
-import { deleteTask } from "./routes/deleteTask";
+import { routes } from "./routes";
+import { AppError } from "./error/AppError";
 
 const app = express();
 
-const port = 3330
-
-app.listen(port, ()=> console.log(`server is runnig on port: ${port}`))
+const port = 3330;
 
 app.use(express.json());
 
-app.use("/task", createTask)
+app.use("/", routes);
 
-app.use("/task", updateTask)
+app.use(
+  (err: Error, request: Request, response: Response, next: NextFunction) => {
+    if (err instanceof AppError) {
+      return response.status(err.statusCode).json({
+        status: "error",
+        message: err.message,
+      });
+    }
 
-app.use("/task", deleteTask)
+    return response.status(500).json({
+      status: "error",
+      message: `Internal server error - ${err.message}`,
+    });
+  }
+);
 
-app.use("/", allTasks)
+app.listen(port, () => console.log(`server is runnig on port: ${port}`));
