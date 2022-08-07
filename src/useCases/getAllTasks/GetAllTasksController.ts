@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { GetAllTasksUseCase } from "./getAllTasksUseCase";
+import { GetAllTasksUseCase } from "./GetAllTasksUseCase";
 
 export class GetAllTasksController {
   async handle(req: Request, res: Response) {
