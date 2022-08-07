@@ -7,7 +7,7 @@ import { AppError } from "./error/AppError";
 
 const app = express();
 
-const port = 3330;
+const port = process.env.PORT || 3330;
 
 const corsOptions = {
   origin: "*",
