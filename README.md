@@ -110,7 +110,7 @@ resposta
 }
 ```
 
-## Bibliotecas
+## Bibliotecas e tecnologias
 
 - [NodeJS](https://nodejs.org/en/)
 - [Express JS](https://expressjs.com/)
